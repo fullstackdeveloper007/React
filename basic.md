@@ -102,8 +102,109 @@ function Modal({ children }) {
 </Modal>
 ```
 👉 Even if you call `<Modal>` inside your app, it renders inside `#modal-root` in the DOM.  
- 
 
+# Question 4. Explain the difference between props and state.
 
+### **1. Props**
+
+* **Definition:** Short for *properties*, props are used to pass **data from parent to child components**.
+* **Characteristics:**
+
+  * **Immutable** (read-only inside the child).
+  * Passed down from parent → child.
+  * Makes components **reusable**.
+
+**Example:**
+
+```jsx
+function Greeting({ name }) {
+  return <h1>Hello, {name}!</h1>;
+}
+
+<Greeting name="Mousharraf" />
+```
+
+### **2. State**
+
+* **Definition:** State is **local data storage** managed *within a component*.
+* **Characteristics:**
+
+  * **Mutable** (can change over time).
+  * Managed internally by the component with `useState` (or `this.state` in class components).
+  * When state changes → component re-renders.
+
+**Example:**
+
+```jsx
+function Counter() {
+  const [count, setCount] = React.useState(0);
+
+  return (
+    <button onClick={() => setCount(count + 1)}>
+      Count: {count}
+    </button>
+  );
+}
+```
+
+### **3. Key Differences**
+
+| Aspect                 | **Props**                            | **State**                         |
+| ---------------------- | ------------------------------------ | --------------------------------- |
+| **Who owns it?**       | Parent (passed down)                 | Component itself                  |
+| **Mutable?**           | ❌ Immutable                          | ✅ Mutable                         |
+| **Usage**              | Pass data/config to child components | Store data that changes over time |
+| **Trigger Re-render?** | No (unless parent re-renders)        | Yes, when state changes           |
+
+---
+
+✅ **In short (interview-ready):**
+* **Props** are inputs passed from parent to child, **read-only**.
+* **State** is data managed inside a component, **can change**, and causes re-renders.
+
+Do you want me to also give you a **one-liner analogy** (like a real-life example) so it’s easier to recall in an interview?
+
+# Question 5. Props can be used to pass the data from child to praent as well 
+
+* **Props flow parent → child.**
+* But if you want the **child to send data back to the parent**, you pass a **callback function as a prop**.  
+
+So the **data still flows down** (the function is passed from parent to child), but the **execution flows up** (child calls the function → parent receives data).
+
+### 🔹 Example
+
+```jsx
+// Parent
+function Parent() {
+  const [message, setMessage] = React.useState("");
+
+  const handleChildMessage = (data) => {
+    setMessage(data);
+  };
+
+  return (
+    <>
+      <Child sendMessage={handleChildMessage} />
+      <p>Message from child: {message}</p>
+    </>
+  );
+}
+
+// Child
+function Child({ sendMessage }) {
+  return (
+    <button onClick={() => sendMessage("Hello Parent!")}>
+      Send Message
+    </button>
+  );
+}
+```
+
+👉 Here:
+* `sendMessage` (a function) is **passed from parent → child as a prop**.
+* The child **invokes** it to pass data back **to the parent**.
+
+### ✅ Interview One-Liner
+**Props are always passed from parent to child, but using callback props, a child can “notify” or send data back to the parent.**
 
 
