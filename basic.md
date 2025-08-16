@@ -54,7 +54,7 @@ React Fragments let you group multiple elements without adding an extra node to 
 ```
 
 # Question 3. What are React Portals?
-Great one 👌 — React Portals is a favorite interview question.
+React Portals let you render children into a DOM node outside the parent hierarchy, useful for modals, tooltips, and dropdowns, while still preserving React’s component structure. 
 
 ### **What are React Portals?**
 A **Portal** lets you render a React component’s children **into a different place in the DOM tree** than its parent component.
@@ -101,9 +101,9 @@ function Modal({ children }) {
   <h2>This is a modal</h2>
 </Modal>
 ```
-👉 Even if you call `<Modal>` inside your app, it renders inside `#modal-root` in the DOM.
-✅ **In short (interview-ready):**
-React Portals let you render children into a DOM node outside the parent hierarchy, useful for modals, tooltips, and dropdowns, while still preserving React’s component structure.
+👉 Even if you call `<Modal>` inside your app, it renders inside `#modal-root` in the DOM.  
+ 
+
 
 
 
