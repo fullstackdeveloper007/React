@@ -370,5 +370,95 @@ useEffect(() => {
 | **useEffect**  | Side effects (API, events)       | N/A                  | Fetch data, subscriptions    |
 
 ---
+# Question 3. When would you use useCallback and useMemo?
+Great question! `useCallback` and `useMemo` are **performance optimization hooks** in React. They are useful when you want to **avoid unnecessary re-renders or expensive calculations**. Let’s break them down.
+
+## 🔹 1. **useCallback**
+* **Purpose:** Memoizes a **function**, so that React doesn’t recreate it on every render.
+* **When to use:**
+
+  * Passing a function as a prop to a **child component** that is wrapped with `React.memo`.
+  * Avoids unnecessary re-renders of the child component when the parent re-renders.
+
+**Example:**
+
+```jsx
+import React, { useState, useCallback } from "react";
+
+const Child = React.memo(({ onClick }) => {
+  console.log("Child re-rendered");
+  return <button onClick={onClick}>Click me</button>;
+});
+
+function Parent() {
+  const [count, setCount] = useState(0);
+
+  // Without useCallback, this function is recreated on every render
+  const handleClick = useCallback(() => {
+    setCount(prev => prev + 1);
+  }, []); // Empty dependency: memoized once
+
+  return (
+    <div>
+      <p>Count: {count}</p>
+      <Child onClick={handleClick} />
+    </div>
+  );
+}
+```
+
+✅ **Benefit:** `Child` will only re-render when `handleClick` changes (here it doesn’t, thanks to `useCallback`).
+
+## 🔹 2. **useMemo**
+* **Purpose:** Memoizes a **computed value** so React doesn’t recalculate it on every render.
+* **When to use:**
+
+  * Expensive calculations that don’t need to run on every render.
+  * Dependent on certain values (dependencies).
+
+**Example:**
+
+```jsx
+import React, { useState, useMemo } from "react";
+
+function ExpensiveComponent({ num }) {
+  const factorial = useMemo(() => {
+    console.log("Calculating factorial...");
+    let result = 1;
+    for (let i = 1; i <= num; i++) {
+      result *= i;
+    }
+    return result;
+  }, [num]); // Recalculate only when `num` changes
+
+  return <p>Factorial of {num} is {factorial}</p>;
+}
+
+function App() {
+  const [count, setCount] = useState(1);
+  return (
+    <div>
+      <ExpensiveComponent num={count} />
+      <button onClick={() => setCount(count + 1)}>Increment</button>
+    </div>
+  );
+}
+```
+
+✅ **Benefit:** The factorial calculation only runs when `num` changes, saving performance on other re-renders.
+### 🔹 Quick Comparison
+
+| Hook            | Memoizes            | Use Case                                                            |
+| --------------- | ------------------- | ------------------------------------------------------------------- |
+| **useCallback** | Function            | Pass stable functions to children to prevent unnecessary re-renders |
+| **useMemo**     | Value / Computation | Avoid expensive calculations on every render                        |
+
+
+💡 **Rule of thumb:**
+* Use these **only when performance issues appear**, because overusing them can make the code more complex.
+If you want, I can also give a **visual diagram showing how `useState`, `useCallback`, and `useMemo` interact during re-renders**, which makes it super easy to remember.
+
+Do you want me to do that?
+
 
 
