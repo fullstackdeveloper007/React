@@ -1,6 +1,6 @@
 # Core React Concepts
 
-# Question 1.  Explain the concept of Virtual DOM and how React uses it.
+## Question 1.  Explain the concept of Virtual DOM and how React uses it.
 ### **A. What is the DOM?**
 * The **DOM (Document Object Model)** is a tree-like structure that represents your HTML elements in the browser.
 * Example:
@@ -42,7 +42,7 @@ III. **Reconciliation (Efficient Updates):**
 ✅ **In short:**
 The Virtual DOM is a **JavaScript representation of the real DOM** that React uses to make UI updates efficient. React updates the Virtual DOM first, compares it with the old one, and then updates only the necessary parts of the real DOM.
 
-# Question 2.   What are React Fragments?  
+## Question 2.   What are React Fragments?  
 A Fragment is a wrapper component in React (<React.Fragment> or shorthand <> </>) that lets you group multiple elements without adding extra nodes to the DOM.  
 React Fragments let you group multiple elements without adding an extra node to the DOM. Unlike a div, they don’t create unnecessary wrappers, keeping the DOM clean and avoiding layout/CSS issues. Use <div> only when you need styling or attributes.  
 
@@ -53,7 +53,7 @@ React Fragments let you group multiple elements without adding an extra node to 
 </>
 ```
 
-# Question 3. What are React Portals?
+## Question 3. What are React Portals?
 React Portals let you render children into a DOM node outside the parent hierarchy, useful for modals, tooltips, and dropdowns, while still preserving React’s component structure. 
 
 ### **What are React Portals?**
@@ -103,7 +103,7 @@ function Modal({ children }) {
 ```
 👉 Even if you call `<Modal>` inside your app, it renders inside `#modal-root` in the DOM.  
 
-# Question 4. Explain the difference between props and state.
+## Question 4. Explain the difference between props and state.
 
 ### **1. Props**
 
@@ -164,7 +164,7 @@ function Counter() {
 
 Do you want me to also give you a **one-liner analogy** (like a real-life example) so it’s easier to recall in an interview?
 
-# Question 5. Props can be used to pass the data from child to praent as well 
+## Question 5. Props can be used to pass the data from child to praent as well 
 
 * **Props flow parent → child.**
 * But if you want the **child to send data back to the parent**, you pass a **callback function as a prop**.  
@@ -278,9 +278,9 @@ function MyComponent() {
 
 ---
 
-# Question 2 🚀 — What are different types of hooks. 
+## Question 2 🚀 — What are different types of hooks. 
 
-## 🔹 1. **useState**
+### 🔹 1. **useState**
 
 * Used to store **stateful data** in a functional component.
 * Re-renders the component whenever the state changes.
@@ -296,7 +296,7 @@ const [count, setCount] = useState(0);
 ✅ Use when:
 * You need **UI updates** when a value changes (e.g., form inputs, toggles, counters).
 
-## 🔹 2. **useRef**
+### 🔹 2. **useRef**
 * Stores a **mutable reference** that doesn’t trigger a re-render when changed.
 * Commonly used for DOM access or storing values across renders without causing updates.
 
@@ -315,7 +315,7 @@ const focusInput = () => {
 * You need to persist values between renders **without re-rendering**.
 * Example: DOM elements, timers, previous values.
 
-## 🔹 3. **useReducer**
+### 🔹 3. **useReducer**
 * Alternative to `useState` for more **complex state logic**.
 * Works like Redux: uses a reducer function with `state` and `action`.
 
@@ -339,7 +339,7 @@ const [state, dispatch] = useReducer(reducer, { count: 0 });
 * State updates are **complex** (multiple sub-values, business logic).
 * Example: Forms, wizards, authentication state.
 
-## 🔹 4. **useEffect**
+### 🔹 4. **useEffect**
 
 * Runs **side effects** (code outside rendering).
 * Examples: fetching data, subscriptions, event listeners.
