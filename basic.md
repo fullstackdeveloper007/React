@@ -205,6 +205,170 @@ function Child({ sendMessage }) {
 * The child **invokes** it to pass data back **to the parent**.
 
 ### ✅ Interview One-Liner
-**Props are always passed from parent to child, but using callback props, a child can “notify” or send data back to the parent.**
+Props are always passed from parent to child, but using callback props, a child can “notify” or send data back to the parent.**
+
+-----
+# Hooks 
+# Question 1. Explain the rules of hooks.
+
+### The two Main Rules of Hooks
+
+### **1. Only Call Hooks at the Top Level**
+
+* ✅ Always call hooks at the **top level of your component or custom hook**.
+* ❌ Don’t call them inside loops, conditions, or nested functions.
+
+Why?
+React relies on the **order of hooks** being the same across renders.
+If you call them conditionally, React can’t track which state or effect corresponds to which hook.
+
+**Bad ❌**
+
+```jsx
+if (isLoggedIn) {
+  const [user, setUser] = useState(null); // ❌ Wrong
+}
+```
+
+**Good ✅**
+
+```jsx
+const [user, setUser] = useState(null); 
+if (isLoggedIn) {
+  // use user here
+}
+
+### **2. Only Call Hooks from React Functions**
+
+* ✅ Call hooks from:
+
+  * React **functional components**
+  * Custom hooks (functions starting with `use`)
+
+* ❌ Don’t call hooks from:
+
+  * Regular JavaScript functions
+  * Class components
+  * Outside of a component
+
+**Bad ❌**
+
+```jsx
+function fetchData() {
+  const [data, setData] = useState([]); // ❌ Not allowed here
+}
+```
+
+**Good ✅**
+
+```jsx
+function MyComponent() {
+  const [data, setData] = useState([]); // ✅ Allowed inside React component
+}
+```
+## 🔹 **Best Practices / Additional Notes**
+
+* **Custom Hooks** must start with `use` (e.g., `useAuth`, `useFetch`) → helps React enforce rules.
+* Use the **`eslint-plugin-react-hooks`** package (comes with Create React App) to catch violations.
+* Hooks must always be called **in the same order** across renders.
+
+✅ **In short (interview-ready):**
+* **Rule 1:** Call hooks **at the top level**, never inside loops, conditions, or nested functions.
+* **Rule 2:** Call hooks **only in React function components or custom hooks**, not in regular functions or classes.
+
+---
+
+# Question 2 🚀 — What are different types of hooks. 
+
+## 🔹 1. **useState**
+
+* Used to store **stateful data** in a functional component.
+* Re-renders the component whenever the state changes.
+
+```jsx
+const [count, setCount] = useState(0);
+
+<button onClick={() => setCount(count + 1)}>
+  Count: {count}
+</button>
+```
+
+✅ Use when:
+* You need **UI updates** when a value changes (e.g., form inputs, toggles, counters).
+
+## 🔹 2. **useRef**
+* Stores a **mutable reference** that doesn’t trigger a re-render when changed.
+* Commonly used for DOM access or storing values across renders without causing updates.
+
+```jsx
+const inputRef = useRef();
+
+const focusInput = () => {
+  inputRef.current.focus(); // Access DOM directly
+};
+
+<input ref={inputRef} type="text" />
+<button onClick={focusInput}>Focus Input</button>
+```
+
+✅ Use when:
+* You need to persist values between renders **without re-rendering**.
+* Example: DOM elements, timers, previous values.
+
+## 🔹 3. **useReducer**
+* Alternative to `useState` for more **complex state logic**.
+* Works like Redux: uses a reducer function with `state` and `action`.
+
+```jsx
+const reducer = (state, action) => {
+  switch (action.type) {
+    case 'increment': return { count: state.count + 1 };
+    case 'decrement': return { count: state.count - 1 };
+    default: return state;
+  }
+};
+
+const [state, dispatch] = useReducer(reducer, { count: 0 });
+
+<button onClick={() => dispatch({ type: 'increment' })}>
+  Count: {state.count}
+</button>
+```
+
+✅ Use when:
+* State updates are **complex** (multiple sub-values, business logic).
+* Example: Forms, wizards, authentication state.
+
+## 🔹 4. **useEffect**
+
+* Runs **side effects** (code outside rendering).
+* Examples: fetching data, subscriptions, event listeners.
+
+```jsx
+useEffect(() => {
+  console.log("Component mounted or count changed");
+
+  return () => {
+    console.log("Cleanup on unmount or before re-run");
+  };
+}, [count]); // Dependency array
+```
+
+✅ Use when:
+
+* Interacting with APIs.
+* Setting up subscriptions or timers.
+* Running code when props/state change.
+
+## 📝 Summary Table
+
+| Hook           | Purpose                          | Re-render on change? | Example Use                  |
+| -------------- | -------------------------------- | -------------------- | ---------------------------- |
+| **useState**   | Manage stateful values           | ✅ Yes                | Counter, form input          |
+| **useRef**     | Store mutable value / DOM ref    | ❌ No                 | Focus input, save prev value |
+| **useReducer** | Complex state logic (like Redux) | ✅ Yes                | Multi-step forms, auth flow  |
+| **useEffect**  | Side effects (API, events)       | N/A                  | Fetch data, subscriptions    |
+
+---
 
 
