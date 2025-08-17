@@ -209,7 +209,7 @@ Props are always passed from parent to child, but using callback props, a child 
 
 -----
 # Hooks 
-# Question 1. Explain the rules of hooks.
+## Question 1. Explain the rules of hooks.
 
 ### The two Main Rules of Hooks
 
