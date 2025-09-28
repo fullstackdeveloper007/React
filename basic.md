@@ -1,4 +1,12 @@
 # Core React Concepts
+1. Virtual Dom
+2. React Fragment
+3. React Portals
+4. props and state
+5. Hooks -> useState,useRef useReducer useEffect
+6. useCallback, useMemo
+7. Redux
+8. How jwt works in React
 
 ## Question 1.  Explain the concept of Virtual DOM and how React uses it.
 ### **A. What is the DOM?**
