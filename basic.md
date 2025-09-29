@@ -7,6 +7,7 @@
 6. useCallback, useMemo
 7. Redux
 8. How jwt works in React
+9. Routin in React
 
 ## Question 1.  Explain the concept of Virtual DOM and how React uses it.
 ### **A. What is the DOM?**
